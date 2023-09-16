@@ -13,7 +13,15 @@ body {
     height: 100vh;
 }
 
+a {
+    color: black;
+}
+
 .side-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     position: relative;
     background-image: url(images/background-img.jpg);
     background-position: center;
@@ -52,6 +60,12 @@ body {
 
 .side-bar .logo-img {
     height: 10vh;
+}
+
+.side-bar .photo-creds {
+    align-self: center;
+    background-color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
 }
 
 
