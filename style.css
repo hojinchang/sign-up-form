@@ -3,6 +3,8 @@
     padding: 0;
     overflow: hidden;
     box-sizing: border-box;
+
+    font-family: Comfortaa, sans-serif;
 }
 
 body {
@@ -12,16 +14,46 @@ body {
 }
 
 .side-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    position: relative;
+    background-image: url(images/background-img.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
     width: 40vw;
+    height: 100vh;
 }
 
-.side-bar img {
-    height: 100vh;
+.side-bar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: rgba(193, 225, 193, 0.3);
+    pointer-events: none;
 }
+
+.side-bar .logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    position: relative;
+    top: 20vh;
+    left: 3vw;
+}
+
+.logo-slogan {
+    margin-top: 10px;
+}
+
+.side-bar .logo-img {
+    height: 10vh;
+}
+
 
 .sign-up-form {
     width: 60vw;
