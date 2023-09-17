@@ -119,4 +119,21 @@ input {
     height: 3vh;
     border-width: 1px;
     border-radius: 0.3rem;
+    outline: none;
+}
+
+
+input:hover {
+    border: 1px solid rgb(188, 223, 188);
+}
+
+input:valid {
+    border: 2px solid rgb(50, 205, 50);
+}
+
+input:focus {
+    border: 2px solid rgb(50, 205, 50);
+    border-width: 2px;
+    transition: border-color 0.3s ease;
+    box-shadow: 0px 6px 8px rgb(188, 223, 188);
 }
