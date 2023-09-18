@@ -61,18 +61,18 @@ function comparePasswords(password, errorFieldPass, passwordConfirm, errorFieldP
 }
 
 function updateForm(form, inputField, validInput) {
-    form[inputField] = validInput;
+    form.set(inputField, validInput);
 }
 
 
-let completeForm = {
-    firstName: false,
-    lastName: false,
-    email: false,
-    phoneNumber: false,
-    password: false,
-    passwordConfirm: false,
-};
+let completeForm = new Map([
+    ["firstName", false],
+    ["lastName", false],
+    ["email", false],
+    ["phoneNumber", false],
+    ["password", false],
+    ["passwordConfirm", false],
+]) 
 
 inputFirstName.addEventListener("blur", (e) => {
     updateForm(completeForm, "firstName", e.target.value);
@@ -128,8 +128,11 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
     }
 })
 
-submitButton.addEventListener("click", (e) => {
-    for (let inputField in completeForm) {
-        let valid = completeForm[inputField];
-    }
-})
+// submitButton.addEventListener("click", (e) => {
+//     for (let inputField in completeForm) {
+//         let valid = completeForm[inputField];
+//         if (!valid) {
+            
+//         } 
+//     }
+// })
