@@ -161,6 +161,5 @@ input:focus {
 
 .login-span {
     font-weight: bold;
-    /* color: 	#005000; */
     color: var(--dark-accent-colour);
 }
