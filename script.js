@@ -80,38 +80,35 @@ let completeForm = {
 };
 
 inputFirstName.addEventListener("blur", (e) => {
-    updateForm(completeForm, "firstName", true);
+    updateForm(completeForm, "firstName", e.target.value);
 })
 
 inputLastName.addEventListener("blur", (e) => {
-    updateForm(completeForm, "lastName", true);
+    updateForm(completeForm, "lastName", e.target.value);
 })
 
 inputEmail.addEventListener("blur", (e) => {
-    let input = e.target.value;
     let errorField = errorFields[2];
     
-    let validEmail = checkEmail(input, errorField);
+    let validEmail = checkEmail(e.target.value, errorField);
     updateForm(completeForm, "email", validEmail);
 })
 
 inputPhoneNumber.addEventListener("blur", (e) => {
-    let input = e.target.value;
     let errorField = errorFields[3];
 
-    let validPhoneNumber = checkPhoneNumber(input, errorField);
+    let validPhoneNumber = checkPhoneNumber(e.target.value, errorField);
     updateForm(completeForm, "phoneNumber", validPhoneNumber);
 })
 
 let password;
 let passwordsMatch
 inputPassword.addEventListener("blur", (e) => {
-    let input = e.target.value;
     let errorField = errorFields[4];
 
-    let validPassword = checkPassword(input, errorField);
+    let validPassword = checkPassword(e.target.value, errorField);
     if (validPassword) {
-        password = input;
+        password = e.target.value;
     }
     updateForm(completeForm, "password", validPassword);
 
@@ -127,13 +124,12 @@ inputPassword.addEventListener("blur", (e) => {
 
 let passwordConfirm;
 inputPasswordConfirm.addEventListener("blur", (e) => {
-    let input = e.target.value;
     let errorFieldPass = errorFields[4];
     let errorFieldPassConfirm = errorFields[5];
 
-    passwordsMatch = comparePasswords(password, errorFieldPass, input, errorFieldPassConfirm);
+    passwordsMatch = comparePasswords(password, errorFieldPass, e.target.value, errorFieldPassConfirm);
     if (passwordsMatch) {
-        passwordConfirm = input;
+        passwordConfirm = e.target.value;
         completeForm["passwordConfirm"] = true;
     } else {
         completeForm["passwordConfirm"] = false;
