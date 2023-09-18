@@ -12,14 +12,12 @@ function displayErrorMessage(errorField, message) {
 }
 
 function checkPasswords(password, errorFieldPass, passwordConfirm, errorFieldPassConfirm) {
-    if (passwordConfirm !== undefined) {
-        if (password === passwordConfirm) {
-            displayErrorMessage(errorFieldPass, "");
-            displayErrorMessage(errorFieldPassConfirm, "");
-        } else {
-            displayErrorMessage(errorFieldPass, "Password does not match");
-            displayErrorMessage(errorFieldPassConfirm, "Password does not match");
-        }
+    if (password === passwordConfirm) {
+        displayErrorMessage(errorFieldPass, "");
+        displayErrorMessage(errorFieldPassConfirm, "");
+    } else {
+        displayErrorMessage(errorFieldPass, "Password does not match");
+        displayErrorMessage(errorFieldPassConfirm, "Password does not match");
     }
 }
 
@@ -53,8 +51,10 @@ inputPassword.addEventListener("blur", (e) => {
     } else {
         displayErrorMessage(errorField, "");
         password = input;
-
-        checkPasswords(password, errorFields[4], passwordConfirm, errorFields[5]);
+        
+        if (passwordConfirm !== undefined) {
+            checkPasswords(password, errorFields[4], passwordConfirm, errorFields[5]);
+        }
     }
 })
 
