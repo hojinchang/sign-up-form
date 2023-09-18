@@ -4,6 +4,7 @@
     --border-radius: 0.3rem;
     --box-shadow: 0px 6px 8px rgba(138, 183, 138, 0.5);
     --dark-accent-colour: rgb(0, 50, 0);
+    --credits-color: rgba(255, 255, 255, 0.6);
 }
 
 * {
@@ -72,7 +73,7 @@ a {
 
 .side-bar .photo-creds {
     align-self: center;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: var(--credits-color);
     margin-bottom: 10px;
 }
 
@@ -169,4 +170,13 @@ input:focus {
 .login-span {
     font-weight: bold;
     color: var(--dark-accent-colour);
+}
+
+footer {
+    position: relative;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: 10px;
+
+    background-color: var(--credits-color);;
 }
