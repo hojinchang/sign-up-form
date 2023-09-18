@@ -1,6 +1,8 @@
 const submitButton = document.querySelector(".submit-button");
 const inputFields = document.querySelectorAll("input")
 const errorFields = document.querySelectorAll(".input-error");
+const inputFirstName = document.querySelector("#first_name");
+const inputLastName = document.querySelector("#last_name");
 const inputEmail = document.querySelector("#email");
 const inputPhoneNumber = document.querySelector("#phone_number");
 const inputPassword = document.querySelector("#password");
@@ -10,6 +12,11 @@ const inputPasswordConfirm = document.querySelector("#password_confirm");
 function displayErrorMessage(errorField, message) {
     errorField.textContent = message;
 }
+
+function checkFirstName() {
+
+}
+
 
 function checkEmail(email, errorField) {
     if (email.includes("@") && (email.includes(".com") || email.includes(".org") || email.includes(".net")) || email === "") {
@@ -59,11 +66,7 @@ function comparePasswords(password, errorFieldPass, passwordConfirm, errorFieldP
 }
 
 function updateForm(form, inputField, validInput) {
-    if (validInput) {
-        form[inputField] = true;
-    } else {
-        form[inputField] = false;
-    }
+    form[inputField] = validInput;
 }
 
 
@@ -75,6 +78,14 @@ let completeForm = {
     password: false,
     passwordConfirm: false,
 };
+
+inputFirstName.addEventListener("blur", (e) => {
+    updateForm(completeForm, "firstName", true);
+})
+
+inputLastName.addEventListener("blur", (e) => {
+    updateForm(completeForm, "lastName", true);
+})
 
 inputEmail.addEventListener("blur", (e) => {
     let input = e.target.value;
@@ -126,5 +137,11 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
         completeForm["passwordConfirm"] = true;
     } else {
         completeForm["passwordConfirm"] = false;
+    }
+})
+
+submitButton.addEventListener("click", (e) => {
+    for (let inputField in completeForm) {
+        let valid = completeForm[inputField];
     }
 })
