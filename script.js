@@ -26,6 +26,7 @@ inputPhoneNumber.addEventListener("blur", (e) => {
     let input = e.target.value;
     let errorField = errorFields[3];
 
-    const regex = /[\d\-]{10,13}/;
-    regex.test(input) ? displayErrorMessage(errorField, "") : displayErrorMessage(errorField, "*Please enter a valid phone number");
+    const regex = /^\d{10}$|^\d{3}-\d{3}-\d{4}$/;
+    console.log(regex.test(input))
+    regex.test(input) || input === "" ? displayErrorMessage(errorField, "") : displayErrorMessage(errorField, "*Please enter a valid phone number");
 })
