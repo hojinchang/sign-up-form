@@ -128,11 +128,19 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
     }
 })
 
-// submitButton.addEventListener("click", (e) => {
-//     for (let inputField in completeForm) {
-//         let valid = completeForm[inputField];
-//         if (!valid) {
-            
-//         } 
-//     }
-// })
+submitButton.addEventListener("click", (e) => {
+    let i = 0;
+
+    console.log(completeForm)
+    for (let [inputField, valid] of completeForm) {
+        let errorField = errorFields[i];
+        if (!valid) {
+            console.log(inputField, valid);
+            errorField.textContent = "*This field is required";
+        } else {
+            errorField.textContent = "";
+        }
+
+        i++;
+    }
+})
