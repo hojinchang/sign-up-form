@@ -21,7 +21,7 @@ function checkFirstName() {
 function checkEmail(email, errorField) {
     if (email.includes("@") && (email.includes(".com") || email.includes(".org") || email.includes(".net")) || email === "") {
         displayErrorMessage(errorField, "");
-        return true;
+        return email;
     } else {
         displayErrorMessage(errorField, "*Please enter a valid Email");
         return false;
@@ -33,7 +33,7 @@ function checkPhoneNumber(number, errorField) {
 
     if (regex.test(number) || number === "") {
         displayErrorMessage(errorField, "");
-        return true;
+        return number;
     } else {
         displayErrorMessage(errorField, "*Please enter a valid phone number");
         return false;
@@ -46,10 +46,10 @@ function checkPassword(password, errorField) {
         return false;
     } else if (password.length === 0) {
         displayErrorMessage(errorField, "");
-        return false;
+        return password;
     } else {
         displayErrorMessage(errorField, "");
-        return true;
+        return password;
     }
 }
 
@@ -101,21 +101,18 @@ inputPhoneNumber.addEventListener("blur", (e) => {
     updateForm(completeForm, "phoneNumber", validPhoneNumber);
 })
 
-let password;
+let validPassword;
 let passwordsMatch
 inputPassword.addEventListener("blur", (e) => {
     let errorField = errorFields[4];
 
-    let validPassword = checkPassword(e.target.value, errorField);
-    if (validPassword) {
-        password = e.target.value;
-    }
+    validPassword = checkPassword(e.target.value, errorField);
     updateForm(completeForm, "password", validPassword);
 
-    if (passwordConfirm !== undefined) {
-        passwordsMatch = comparePasswords(password, errorFields[4], passwordConfirm, errorFields[5]);
+    if (passwordConfirm !== undefined && validPassword) {
+        passwordsMatch = comparePasswords(validPassword, errorFields[4], passwordConfirm, errorFields[5]);
         if (passwordsMatch) {
-            completeForm["passwordConfirm"] = true;
+            completeForm["passwordConfirm"] = passwordConfirm;
         } else {
             completeForm["passwordConfirm"] = false;
         }
@@ -127,10 +124,10 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
     let errorFieldPass = errorFields[4];
     let errorFieldPassConfirm = errorFields[5];
 
-    passwordsMatch = comparePasswords(password, errorFieldPass, e.target.value, errorFieldPassConfirm);
+    passwordConfirm = e.target.value;
+    passwordsMatch = comparePasswords(validPassword, errorFieldPass, passwordConfirm, errorFieldPassConfirm);
     if (passwordsMatch) {
-        passwordConfirm = e.target.value;
-        completeForm["passwordConfirm"] = true;
+        completeForm["passwordConfirm"] = passwordConfirm;
     } else {
         completeForm["passwordConfirm"] = false;
     }
