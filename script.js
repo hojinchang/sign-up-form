@@ -137,7 +137,6 @@ submitButton.addEventListener("click", () => {
     let i = 0;
     for (let [inputField, value] of completeForm) {
         let errorField = errorFields[i];
-        console.log(inputField, value)
         if (!value) {
             if (inputField==="email") {
                 errorField.textContent = "*Please enter a valid Email";
@@ -149,8 +148,8 @@ submitButton.addEventListener("click", () => {
         } else {
                 errorField.textContent = "";
         }
-
         i++;
     }
+    passwordsMatch = comparePasswords(completeForm.get("password"), errorFields[4], completeForm.get("passwordConfirm"), errorFields[5]);
     
 })
