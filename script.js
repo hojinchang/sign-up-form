@@ -54,8 +54,8 @@ function comparePasswords(password, errorFieldPass, passwordConfirm, errorFieldP
         displayErrorMessage(errorFieldPassConfirm, "");
         return true;
     } else {
-        displayErrorMessage(errorFieldPass, "Password does not match");
-        displayErrorMessage(errorFieldPassConfirm, "Password does not match");
+        displayErrorMessage(errorFieldPass, "*Password does not match");
+        displayErrorMessage(errorFieldPassConfirm, "*Password does not match");
         return false;
     }
 }
