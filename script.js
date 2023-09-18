@@ -15,9 +15,11 @@ function checkPasswords(password, errorFieldPass, passwordConfirm, errorFieldPas
     if (password === passwordConfirm) {
         displayErrorMessage(errorFieldPass, "");
         displayErrorMessage(errorFieldPassConfirm, "");
+        return true;
     } else {
         displayErrorMessage(errorFieldPass, "Password does not match");
         displayErrorMessage(errorFieldPassConfirm, "Password does not match");
+        return false;
     }
 }
 
@@ -42,6 +44,7 @@ inputPhoneNumber.addEventListener("blur", (e) => {
 })
 
 let password;
+let passwordsMatch
 inputPassword.addEventListener("blur", (e) => {
     let input = e.target.value;
     let errorField = errorFields[4];
@@ -51,9 +54,9 @@ inputPassword.addEventListener("blur", (e) => {
     } else {
         displayErrorMessage(errorField, "");
         password = input;
-        
+
         if (passwordConfirm !== undefined) {
-            checkPasswords(password, errorFields[4], passwordConfirm, errorFields[5]);
+            passwordsMatch = checkPasswords(password, errorFields[4], passwordConfirm, errorFields[5]);
         }
     }
 })
@@ -64,16 +67,6 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
     let errorFieldPass = errorFields[4];
     let errorFieldPassConfirm = errorFields[5];
 
-    if (input === "") {
-        displayErrorMessage(errorFieldPass, "");
-        displayErrorMessage(errorFieldPassConfirm, "");
-    } else if (password !== input) {
-        displayErrorMessage(errorFieldPass, "Password does not match");
-        displayErrorMessage(errorFieldPassConfirm, "Password does not match");
-    } else {
-        displayErrorMessage(errorFieldPass, "");
-        displayErrorMessage(errorFieldPassConfirm, "");
-    }
-
+    passwordsMatch = checkPasswords(password, errorFieldPass, input, errorFieldPassConfirm);
     passwordConfirm = input;
 })
