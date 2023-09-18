@@ -109,9 +109,9 @@ inputPassword.addEventListener("blur", (e) => {
     if (passwordConfirm !== undefined && validPassword) {
         passwordsMatch = comparePasswords(validPassword, errorFields[4], passwordConfirm, errorFields[5]);
         if (passwordsMatch) {
-            completeForm["passwordConfirm"] = passwordConfirm;
+            completeForm.set("passwordConfirm", passwordConfirm);
         } else {
-            completeForm["passwordConfirm"] = false;
+            completeForm.set("passwordConfirm", false);
         }
     }
 })
@@ -123,10 +123,11 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
 
     passwordConfirm = e.target.value;
     passwordsMatch = comparePasswords(validPassword, errorFieldPass, passwordConfirm, errorFieldPassConfirm);
+    
     if (passwordsMatch) {
-        completeForm["passwordConfirm"] = passwordConfirm;
+        completeForm.set("passwordConfirm", passwordConfirm);
     } else {
-        completeForm["passwordConfirm"] = false;
+        completeForm.set("passwordConfirm", false);
     }
 })
 
