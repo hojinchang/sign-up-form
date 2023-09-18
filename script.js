@@ -76,10 +76,12 @@ let completeForm = new Map([
 
 inputFirstName.addEventListener("blur", (e) => {
     updateForm(completeForm, "firstName", e.target.value);
+    displayErrorMessage(errorFields[0], "");
 })
 
 inputLastName.addEventListener("blur", (e) => {
     updateForm(completeForm, "lastName", e.target.value);
+    displayErrorMessage(errorFields[1], "");
 })
 
 inputEmail.addEventListener("blur", (e) => {
@@ -128,7 +130,7 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
     }
 })
 
-submitButton.addEventListener("click", (e) => {
+submitButton.addEventListener("click", () => {
     let i = 0;
 
     console.log(completeForm)
