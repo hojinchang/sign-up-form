@@ -120,7 +120,7 @@ a {
 }
 
 input {
-    height: 3vh;
+    height: 30px;
     border-width: 1px;
     border-radius: var(--border-radius);
     outline: none;
