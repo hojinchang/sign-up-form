@@ -19,7 +19,7 @@ function checkEmail(email, errorField) {
         return email;
     } else {
         displayErrorMessage(errorField, "*Please enter a valid Email");
-        return false;
+        return "";
     }
 }
 
@@ -31,14 +31,14 @@ function checkPhoneNumber(number, errorField) {
         return number;
     } else {
         displayErrorMessage(errorField, "*Please enter a valid phone number");
-        return false;
+        return "";
     }
 }
 
 function checkPassword(password, errorField) {
     if (password.length < 8 && password.length !== 0) {
         displayErrorMessage(errorField, "*Password must be minimum 8 characters long");
-        return false;
+        return "";
     } else if (password.length === 0) {
         displayErrorMessage(errorField, "");
         return password;
@@ -66,12 +66,12 @@ function updateForm(form, inputField, validInput) {
 
 
 let completeForm = new Map([
-    ["firstName", false],
-    ["lastName", false],
-    ["email", false],
-    ["phoneNumber", false],
-    ["password", false],
-    ["passwordConfirm", false],
+    ["firstName", ""],
+    ["lastName", ""],
+    ["email", ""],
+    ["phoneNumber", ""],
+    ["password", ""],
+    ["passwordConfirm", ""],
 ]) 
 
 inputFirstName.addEventListener("blur", (e) => {
@@ -111,7 +111,7 @@ inputPassword.addEventListener("blur", (e) => {
         if (passwordsMatch) {
             completeForm.set("passwordConfirm", passwordConfirm);
         } else {
-            completeForm.set("passwordConfirm", false);
+            completeForm.set("passwordConfirm", "");
         }
     }
 })
@@ -127,23 +127,30 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
     if (passwordsMatch) {
         completeForm.set("passwordConfirm", passwordConfirm);
     } else {
-        completeForm.set("passwordConfirm", false);
+        completeForm.set("passwordConfirm", "");
     }
 })
 
 submitButton.addEventListener("click", () => {
-    let i = 0;
 
-    console.log(completeForm)
-    for (let [inputField, valid] of completeForm) {
+    passwordsMatch = comparePasswords(completeForm.get("password"), errorFields[4], completeForm.get("passwordConfirm"), errorFields[5]);
+    let i = 0;
+    for (let [inputField, value] of completeForm) {
         let errorField = errorFields[i];
-        if (!valid) {
-            console.log(inputField, valid);
-            errorField.textContent = "*This field is required";
+        console.log(inputField, value)
+        if (!value) {
+            if (inputField==="email") {
+                errorField.textContent = "*Please enter a valid Email";
+            } else if (inputField==="phoneNumber") {
+                errorField.textContent = "*Please enter a valid phone number";
+            } else {
+                errorField.textContent = "*This field is required";
+            }
         } else {
-            errorField.textContent = "";
+                errorField.textContent = "";
         }
 
         i++;
     }
+    
 })
