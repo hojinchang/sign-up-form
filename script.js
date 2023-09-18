@@ -1,3 +1,4 @@
+const form = document.querySelector(".sign-up-form");
 const submitButton = document.querySelector(".submit-button");
 const inputFields = document.querySelectorAll("input")
 const errorFields = document.querySelectorAll(".input-error");
@@ -48,8 +49,16 @@ function checkPassword(password, errorField) {
     }
 }
 
-function comparePasswords(password, errorFieldPass, passwordConfirm, errorFieldPassConfirm) {
+function comparePasswords(password, passwordConfirm) {
     if (password === passwordConfirm) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function checkPasswords(password, errorFieldPass, passwordConfirm, errorFieldPassConfirm) {
+    if (comparePasswords(password, passwordConfirm)) {
         displayErrorMessage(errorFieldPass, "");
         displayErrorMessage(errorFieldPassConfirm, "");
         return true;
@@ -60,19 +69,67 @@ function comparePasswords(password, errorFieldPass, passwordConfirm, errorFieldP
     }
 }
 
+
+function checkErrors(completeForm) {
+    let errorCount = 0;
+    let i = 0;
+    for (let [inputField, value] of completeForm) {
+        let errorField = errorFields[i];
+        let errorMessage;
+        if (!value) {
+            switch (inputField) {
+                case "email":
+                    errorMessage = "*Please enter a valid Email";
+                    break;
+                case "phoneNumber":
+                    errorMessage = "*Please enter a valid phone number";
+                    break;
+                default:
+                    errorMessage = "*This field is required";
+                    break;
+            }
+            errorCount++;
+        } else if (inputField === "password" || inputField === "passwordConfirm") {
+            passwordsMatch = comparePasswords(completeForm.get("password"), completeForm.get("passwordConfirm"));
+            if (!passwordsMatch) {
+                errorMessage="*Password does not match";
+                errorCount++;
+            } else {
+                errorMessage="";
+            }
+        }
+
+        errorField.textContent = errorMessage;
+        i++;
+    }
+    return errorCount;
+}
+
 function updateForm(form, inputField, validInput) {
     form.set(inputField, validInput);
 }
 
+function resetForm() {
+    newMap = createMap();
+    form.reset();
 
-let completeForm = new Map([
-    ["firstName", ""],
-    ["lastName", ""],
-    ["email", ""],
-    ["phoneNumber", ""],
-    ["password", ""],
-    ["passwordConfirm", ""],
-]) 
+    return newMap
+}
+
+function createMap() {
+    let newMap = new Map([
+        ["firstName", ""],
+        ["lastName", ""],
+        ["email", ""],
+        ["phoneNumber", ""],
+        ["password", ""],
+        ["passwordConfirm", ""],
+    ]) 
+    return newMap
+}
+
+
+let completeForm = createMap();
 
 inputFirstName.addEventListener("blur", (e) => {
     updateForm(completeForm, "firstName", e.target.value);
@@ -107,12 +164,8 @@ inputPassword.addEventListener("blur", (e) => {
     updateForm(completeForm, "password", validPassword);
 
     if (passwordConfirm !== undefined && validPassword) {
-        passwordsMatch = comparePasswords(validPassword, errorFields[4], passwordConfirm, errorFields[5]);
-        if (passwordsMatch) {
-            completeForm.set("passwordConfirm", passwordConfirm);
-        } else {
-            completeForm.set("passwordConfirm", "");
-        }
+        passwordsMatch = checkPasswords(validPassword, errorFields[4], passwordConfirm, errorFields[5]);
+        completeForm.set("passwordConfirm", passwordConfirm);
     }
 })
 
@@ -122,34 +175,16 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
     let errorFieldPassConfirm = errorFields[5];
 
     passwordConfirm = e.target.value;
-    passwordsMatch = comparePasswords(validPassword, errorFieldPass, passwordConfirm, errorFieldPassConfirm);
-    
-    if (passwordsMatch) {
-        completeForm.set("passwordConfirm", passwordConfirm);
-    } else {
-        completeForm.set("passwordConfirm", "");
-    }
+    passwordsMatch = checkPasswords(validPassword, errorFieldPass, passwordConfirm, errorFieldPassConfirm);
+    completeForm.set("passwordConfirm", passwordConfirm);
 })
 
-submitButton.addEventListener("click", () => {
 
-    passwordsMatch = comparePasswords(completeForm.get("password"), errorFields[4], completeForm.get("passwordConfirm"), errorFields[5]);
-    let i = 0;
-    for (let [inputField, value] of completeForm) {
-        let errorField = errorFields[i];
-        if (!value) {
-            if (inputField==="email") {
-                errorField.textContent = "*Please enter a valid Email";
-            } else if (inputField==="phoneNumber") {
-                errorField.textContent = "*Please enter a valid phone number";
-            } else {
-                errorField.textContent = "*This field is required";
-            }
-        } else {
-                errorField.textContent = "";
-        }
-        i++;
+submitButton.addEventListener("click", () => {
+    let errorCount = checkErrors(completeForm);
+
+    if (errorCount === 0) {
+        alert("Sign up with P L V N T S successful!");
+        completeForm = resetForm();
     }
-    passwordsMatch = comparePasswords(completeForm.get("password"), errorFields[4], completeForm.get("passwordConfirm"), errorFields[5]);
-    
 })
