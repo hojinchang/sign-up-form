@@ -11,6 +11,20 @@ function displayErrorMessage(errorField, message) {
     errorField.textContent = message;
 }
 
+function checkEmail(email, errorField) {
+    if (email.includes("@") && (email.includes(".com") || email.includes(".org") || email.includes(".net")) || email === "") {
+        displayErrorMessage(errorField, "");
+    } else {
+        displayErrorMessage(errorField, "*Please enter a valid Email");
+    }
+}
+
+function checkPhoneNumber(number, errorField) {
+    const regex = /^\d{10}$|^\d{3}-\d{3}-\d{4}$/;
+    regex.test(number) || number === "" ? displayErrorMessage(errorField, "") : 
+                                        displayErrorMessage(errorField, "*Please enter a valid phone number");
+}
+
 function checkPasswords(password, errorFieldPass, passwordConfirm, errorFieldPassConfirm) {
     if (password === passwordConfirm) {
         displayErrorMessage(errorFieldPass, "");
@@ -24,23 +38,19 @@ function checkPasswords(password, errorFieldPass, passwordConfirm, errorFieldPas
 }
 
 
+
 inputEmail.addEventListener("blur", (e) => {
     let input = e.target.value;
     let errorField = errorFields[2];
     
-    if (input.includes("@") && (input.includes(".com") || input.includes(".org") || input.includes(".net")) || input === "") {
-        displayErrorMessage(errorField, "");
-    } else {
-        displayErrorMessage(errorField, "*Please enter a valid Email");
-    }
+    checkEmail(input, errorField);
 })
 
 inputPhoneNumber.addEventListener("blur", (e) => {
     let input = e.target.value;
     let errorField = errorFields[3];
 
-    const regex = /^\d{10}$|^\d{3}-\d{3}-\d{4}$/;
-    regex.test(input) || input === "" ? displayErrorMessage(errorField, "") : displayErrorMessage(errorField, "*Please enter a valid phone number");
+    checkPhoneNumber(input, errorField)
 })
 
 let password;
@@ -54,10 +64,10 @@ inputPassword.addEventListener("blur", (e) => {
     } else {
         displayErrorMessage(errorField, "");
         password = input;
+    }
 
-        if (passwordConfirm !== undefined) {
-            passwordsMatch = checkPasswords(password, errorFields[4], passwordConfirm, errorFields[5]);
-        }
+    if (passwordConfirm !== undefined) {
+        passwordsMatch = checkPasswords(password, errorFields[4], passwordConfirm, errorFields[5]);
     }
 })
 
@@ -69,4 +79,9 @@ inputPasswordConfirm.addEventListener("blur", (e) => {
 
     passwordsMatch = checkPasswords(password, errorFieldPass, input, errorFieldPassConfirm);
     passwordConfirm = input;
+})
+
+
+submitButton.addEventListener("click", (e) => {
+    
 })
