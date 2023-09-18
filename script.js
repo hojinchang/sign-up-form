@@ -13,11 +13,6 @@ function displayErrorMessage(errorField, message) {
     errorField.textContent = message;
 }
 
-function checkFirstName() {
-
-}
-
-
 function checkEmail(email, errorField) {
     if (email.includes("@") && (email.includes(".com") || email.includes(".org") || email.includes(".net")) || email === "") {
         displayErrorMessage(errorField, "");
