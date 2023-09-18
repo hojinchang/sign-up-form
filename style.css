@@ -113,6 +113,7 @@ a {
 }
 
 .input-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 20vw;
@@ -139,6 +140,12 @@ input:focus {
     border-width: 2px;
     transition: border-color 0.3s ease;
     box-shadow: var(--box-shadow);
+}
+
+.input-error {
+    position: absolute;
+    color: red;
+    top: 70px;
 }
 
 .submit-button {
