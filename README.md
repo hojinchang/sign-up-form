@@ -25,4 +25,4 @@ Visit the **P L V N T S** sign up webpage [here](https://hojinchang.github.io/si
 - Apply absolute and relative positioning to position elements
 
 ## Acknowledgement
-Background image is by [Annie Spratt]("https://unsplash.com/@anniespratt") on [Unsplash]("https://unsplash.com/@anniespratt").
+Background image is by [Annie Spratt](https://unsplash.com/@anniespratt) on [Unsplash](https://unsplash.com/@anniespratt).
